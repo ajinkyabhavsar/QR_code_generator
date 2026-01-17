@@ -26,8 +26,8 @@ body {
 
 .app {
     width: 100%;
-    max-width: 880px;
-    padding: 24px;
+    max-width: 900px;
+    padding: 16px;
 }
 
 .card {
@@ -39,6 +39,7 @@ body {
     overflow: hidden;
 }
 
+/* LEFT / RIGHT */
 .left {
     padding: 32px;
 }
@@ -52,6 +53,7 @@ body {
     justify-content: center;
 }
 
+/* TEXT */
 h1 {
     font-size: 26px;
     margin: 0 0 8px;
@@ -60,7 +62,7 @@ h1 {
 .subtitle {
     color: #555;
     font-size: 14px;
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 }
 
 .label {
@@ -70,13 +72,14 @@ h1 {
     color: #374151;
 }
 
+/* INPUTS */
 input, select {
     width: 100%;
     padding: 12px 14px;
     border-radius: 10px;
     border: 1px solid #d1d5db;
     font-size: 14px;
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
 input:focus, select:focus {
@@ -84,10 +87,11 @@ input:focus, select:focus {
     border-color: #2563eb;
 }
 
+/* COLORS */
 .color-row {
     display: flex;
     gap: 16px;
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 }
 
 .color-box {
@@ -100,7 +104,9 @@ input:focus, select:focus {
     cursor: pointer;
 }
 
+/* BUTTONS */
 button {
+    width: 100%;
     background: #2563eb;
     color: white;
     border: none;
@@ -116,6 +122,13 @@ button:hover {
     background: #1e40af;
 }
 
+.download {
+    margin-top: 18px;
+    background: #16a34a;
+    display: none;
+}
+
+/* QR */
 #qrcode {
     width: 300px;
     height: 300px;
@@ -124,28 +137,53 @@ button:hover {
     justify-content: center;
 }
 
-.download {
-    margin-top: 18px;
-    background: #16a34a;
-    display: none;
-}
-
+/* FOOTER */
 .privacy {
-    margin-top: 18px;
+    margin-top: 16px;
     font-size: 12px;
     color: #6b7280;
     text-align: center;
 }
 
-@media (max-width: 900px) {
+/* ✅ MOBILE FIX */
+@media (max-width: 768px) {
+
     .card {
         grid-template-columns: 1fr;
     }
-    .right {
-        border-top: 1px solid #e5e7eb;
+
+    .left, .right {
+        padding: 24px;
+    }
+
+    #qrcode {
+        width: 280px;
+        height: 280px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+    }
+}
+
+/* EXTRA SMALL DEVICES */
+@media (max-width: 420px) {
+
+    .left, .right {
+        padding: 20px;
+    }
+
+    #qrcode {
+        width: 260px;
+        height: 260px;
     }
 }
 </style>
+
 </head>
 
 <body>
