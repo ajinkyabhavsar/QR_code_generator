@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Free QR Code Generator – No Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO -->
+    <meta name="description" content="Free QR Code Generator. Create QR codes for URLs, text, phone numbers and Wi-Fi. No login, no tracking, 100% free.">
+
+    <!-- QR Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #eef2ff, #f8fafc);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 28px;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 18px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 11px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            font-size: 14px;
+        }
+
+        .row {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        #qrcode {
+            margin-top: 18px;
+            min-height: 210px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .download-btn {
+            margin-top: 14px;
+            background: #16a34a;
+            display: none;
+        }
+
+        .error {
+            font-size: 12px;
+            color: #dc2626;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        footer {
+            margin-top: 16px;
+            font-size: 11px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Free QR Code Generator</h1>
+    <div class="subtitle">No login • No tracking • Works offline</div>
+
+    <select id="qrType">
+        <option value="text">Text / URL</option>
+        <option value="phone">Phone Number</option>
+        <option value="wifi">Wi-Fi</option>
+    </select>
+
+    <input type="text" id="qrText" placeholder="Enter text or URL">
+
+    <div class="row">
+        <select id="qrSize">
+            <option value="150">Small</option>
+            <option value="200" selected>Medium</option>
+            <option value="300">Large</option>
+        </select>
+
+        <input type="color" id="qrColor" value="#000000">
+        <input type="color" id="bgColor" value="#ffffff">
+    </div>
+
+    <div class="error" id="errorMsg"></div>
+
+    <button onclick="generateQR()">Generate QR Code</button>
+
+    <div id="qrcode"></div>
+
+    <button class="download-btn" id="downloadBtn" onclick="downloadQR()">Download PNG</button>
+
+    <footer>
+        All QR codes are generated locally in your browser.
+    </footer>
+</div>
+
+<script>
+    let qr;
+
+    function generateQR() {
+        const type = document.getElementById("qrType").value;
+        const textInput = document.getElementById("qrText");
+        const size = parseInt(document.getElementById("qrSize").value);
+        const color = document.getElementById("qrColor").value;
+        const bgColor = document.getElementById("bgColor").value;
+        const qrContainer = document.getElementById("qrcode");
+        const errorMsg = document.getElementById("errorMsg");
+        const downloadBtn = document.getElementById("downloadBtn");
+
+        let text = textInput.value.trim();
+
+        errorMsg.style.display = "none";
+        qrContainer.innerHTML = "";
+        downloadBtn.style.display = "none";
+
+        if (!text) {
+            errorMsg.textContent = "Please enter a value to generate QR code.";
+            errorMsg.style.display = "block";
+            return;
+        }
+
+        if (type === "phone") {
+            text = "tel:" + text;
+        }
+
+        if (type === "wifi") {
+            text = `WIFI:T:WPA;S:${text};P:password;;`;
+        }
+
+        qr = new QRCode(qrContainer, {
+            text: text,
+            width: size,
+            height: size,
+            colorDark: color,
+            colorLight: bgColor,
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        setTimeout(() => {
+            downloadBtn.style.display = "block";
+        }, 300);
+    }
+
+    function downloadQR() {
+        const img = document.querySelector("#qrcode img");
+        if (!img) return;
+
+        const link = document.createElement("a");
+        link.href = img.src;
+        link.download = "qr-code.png";
+        link.click();
+    }
+
+    document.getElementById("qrText").addEventListener("keydown", e => {
+        if (e.key === "Enter") generateQR();
+    });
+</script>
+
+</body>
+</html>
