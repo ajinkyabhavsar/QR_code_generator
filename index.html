@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Free QR Code Generator</title>
+<title>Free QR Code Generator | freeqrstudio</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta name="description" content="Generate QR codes instantly. Free, private, no login required. Works fully in your browser.">
 
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="Free_QR_Studio_Logo_circle.png">
+
+<!-- QR Code Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+<!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
@@ -24,12 +29,26 @@ body {
     justify-content: center;
 }
 
+/* TOP BRAND */
+.top-brand {
+    position: fixed;
+    top: 20px;
+    left: 24px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #1877F2;
+    letter-spacing: -0.4px;
+    z-index: 1000;
+}
+
+/* APP */
 .app {
     width: 100%;
     max-width: 900px;
-    padding: 16px;
+    padding: 80px 16px 16px;
 }
 
+/* CARD */
 .card {
     background: #ffffff;
     border-radius: 18px;
@@ -137,7 +156,7 @@ button:hover {
     justify-content: center;
 }
 
-/* FOOTER */
+/* PRIVACY */
 .privacy {
     margin-top: 16px;
     font-size: 12px;
@@ -145,9 +164,16 @@ button:hover {
     text-align: center;
 }
 
-/* ✅ MOBILE FIX */
-@media (max-width: 768px) {
+/* FOOTER */
+.footer {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 12px;
+    color: #6b7280;
+}
 
+/* MOBILE */
+@media (max-width: 768px) {
     .card {
         grid-template-columns: 1fr;
     }
@@ -165,14 +191,14 @@ button:hover {
         font-size: 22px;
     }
 
-    .subtitle {
-        font-size: 13px;
+    .top-brand {
+        font-size: 22px;
+        top: 14px;
+        left: 16px;
     }
 }
 
-/* EXTRA SMALL DEVICES */
 @media (max-width: 420px) {
-
     .left, .right {
         padding: 20px;
     }
@@ -183,10 +209,12 @@ button:hover {
     }
 }
 </style>
-
 </head>
 
 <body>
+
+<!-- BRAND -->
+<div class="top-brand">freeqrstudio</div>
 
 <div class="app">
     <div class="card">
@@ -235,6 +263,11 @@ button:hover {
         </div>
 
     </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        Powered by Concept Box Technology
+    </div>
 </div>
 
 <script>
@@ -254,7 +287,6 @@ function generateQR() {
     downloadBtn.style.display = "none";
 
     let text = textInput;
-
     if (type === "phone") text = "tel:" + text;
     if (type === "wifi") text = `WIFI:T:WPA;S:${text};P:password;;`;
 
@@ -285,4 +317,3 @@ function downloadQR() {
 
 </body>
 </html>
-
